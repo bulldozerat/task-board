@@ -1,0 +1,16 @@
+.boardColumn {
+  flex-grow: 1;
+  margin: 10px;
+  width: 16%;
+  background: #f1f1f1;
+}
+
+.boardColumnTitle {
+  margin-top: 0;
+  margin-bottom: 10px;
+  background: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+}
