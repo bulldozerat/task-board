@@ -10,7 +10,10 @@ function TopNavigation(props: TopNavigationProps) {
 
   return (
     <div className={styles.topNavigation}>
-      <Button variant="contained" onClick={openMainModalWithCreateTaskForm}>
+      <Button
+        variant="contained"
+        size="small"
+        onClick={openMainModalWithCreateTaskForm}>
         Create Task
       </Button>
     </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Button, FormControl, MenuItem, Select, TextField } from '@mui/material'
 
+import styles from './InformationTaskEdit.module.scss'
 import {
   IBoardTask,
   ITaskColumnData,
@@ -49,7 +50,7 @@ const InformationTaskEdit = (props: InformationTaskEditProps) => {
   }
 
   return (
-    <div>
+    <div className={styles.informationTaskEditWrapper}>
       <TextField
         value={taskTitleValue}
         type="text"
@@ -62,6 +63,7 @@ const InformationTaskEdit = (props: InformationTaskEditProps) => {
       <FormControl variant="standard" fullWidth margin="dense">
         <Select
           value={taskPriority}
+          variant="outlined"
           onChange={(event) =>
             setTaskPriority(event.target.value as TASK_PRIORITY)
           }>
@@ -86,13 +88,14 @@ const InformationTaskEdit = (props: InformationTaskEditProps) => {
       />
 
       {isTheSameTaskData && (
-        <div style={{ marginBottom: '5px', fontSize: '12px' }}>
+        <div style={{ marginBottom: '5px', fontSize: '10px' }}>
           The current information is already saved
         </div>
       )}
 
       <Button
         variant="contained"
+        size="small"
         disabled={isTaskFormButtonDisabled}
         onClick={saveTaskChanges}>
         Save Changes

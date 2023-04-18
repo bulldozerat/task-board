@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from 'store/store'
 
-interface IMainModalState {
+export interface IMainModalState {
   isModalOpened: boolean
   renderCreateTaskForm: boolean
   renderViewTaskForm: boolean
 }
 
-const initialState: IMainModalState = {
+export const initialState: IMainModalState = {
   isModalOpened: false,
   renderCreateTaskForm: false,
   renderViewTaskForm: false

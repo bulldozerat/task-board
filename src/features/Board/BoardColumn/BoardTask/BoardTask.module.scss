@@ -4,7 +4,7 @@
   background: #fff;
   min-height: 60px;
   border-radius: 5px;
-  box-shadow: 3px 5px 19px -14px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 0 1px 0 rgba(9,30,66,0.31), 0 2px 4px -1px rgba(9,30,66,0.25);
   cursor: move;
 }
 
@@ -26,6 +26,14 @@
     width: 22px;
     height: 22px;
     font-size: 10px;
+  }
+
+  .boardTaskInfoWrapperRightSide {
+    display: flex;
+
+    > span {
+      margin-right: 5px;
+    }
   }
 }
 

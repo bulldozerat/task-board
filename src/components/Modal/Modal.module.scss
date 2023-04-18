@@ -3,12 +3,22 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
-  background-color: #fff;
-  border: 2px solid #000;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 11px 15px -7px,
-    rgba(0, 0, 0, 0.14) 0px 24px 38px 3px, rgba(0, 0, 0, 0.12) 0px 9px 46px 8px;
+  display: block;
   padding: 15px 30px;
+  overflow: scroll;
+  width: 400px;
+  min-height: 300px;
+  max-height: 80%;
+  background-color: #fff;
+  border: 2px solid #091e424f;
+  box-shadow: 0 0 1px 0 #091e424f, 0 2px 4px -1px #091e424f;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .modalTitle {

@@ -1,15 +1,21 @@
 .boardColumn {
   flex-grow: 1;
-  margin: 10px;
+  margin-right: 10px;
   width: 16%;
-  background: #f1f1f1;
+  background: #f4f5f7;
+  
+  &:last-of-type {
+    margin-right: 0;
+  }
 }
 
 .boardColumnTitle {
   margin-top: 0;
   margin-bottom: 10px;
+  padding-bottom: 15px;
   background: #fff;
-  font-size: 20px;
+  color: #5e6c84;
+  font-size: 14px;
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;

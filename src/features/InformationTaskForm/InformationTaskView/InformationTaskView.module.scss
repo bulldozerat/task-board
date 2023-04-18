@@ -16,3 +16,18 @@
 .informationTaskViewDescription {
   max-height: 300px;
 }
+
+.informationTaskViewAddComment {
+  position: relative;
+
+  svg {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+}
+
+.informationTaskSection {
+  margin-bottom: 15px;
+}

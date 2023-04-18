@@ -13,7 +13,7 @@ import {
 import boardSlice from 'store/slices/boardSlice'
 import mainModalSlice from 'store/slices/mainModalSlice'
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   board: boardSlice,
   mainModal: mainModalSlice
 })
@@ -28,6 +28,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
   reducer: persistedReducer,
+  devTools: process.env.NODE_ENV !== 'production',
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

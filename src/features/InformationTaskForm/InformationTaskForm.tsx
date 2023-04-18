@@ -3,12 +3,12 @@ import { Button } from '@mui/material'
 
 import styles from './InformationTaskForm.module.scss'
 import { ITaskColumnData } from 'types/Board.interfaces'
-import InformationTaskView from './InformationTaskView'
+import InformationTaskViewContainer from './InformationTaskView/informationTaskViewContainer'
 import InformationTaskEditContainer from './InformationTaskEdit/InformationTaskEditContainer'
 
 interface InformationTaskFormProps {
   activeTaskColumnData: ITaskColumnData
-  deleteTask: () => void
+  deleteTask: (arg0: ITaskColumnData) => void
   closeMainModal: () => void
 }
 
@@ -18,7 +18,7 @@ const InformationTaskForm = (props: InformationTaskFormProps) => {
   const [isEditEnabled, setIsEditEnabled] = useState(false)
 
   const deleteTaskInformation = () => {
-    deleteTask()
+    deleteTask(activeTaskColumnData)
     closeMainModal()
   }
 
@@ -38,21 +38,22 @@ const InformationTaskForm = (props: InformationTaskFormProps) => {
           toggleEditModal={toggleEditModal}
         />
       ) : (
-        <InformationTaskView activeTaskColumnData={activeTaskColumnData} />
+        <InformationTaskViewContainer
+          activeTaskColumnData={activeTaskColumnData}
+        />
       )}
 
       <div className={styles.informationFormButtonsWrapper}>
-        <div>
-          <Button variant="contained" onClick={toggleEditModal}>
-            {isEditEnabled ? 'Cancel Edit' : 'Edit'}
-          </Button>
-          <Button
-            variant="contained"
-            color="error"
-            onClick={deleteTaskInformation}>
-            Delete
-          </Button>
-        </div>
+        <Button variant="contained" size="small" onClick={toggleEditModal}>
+          {isEditEnabled ? 'Cancel Edit' : 'Edit'}
+        </Button>
+        <Button
+          variant="contained"
+          color="error"
+          size="small"
+          onClick={deleteTaskInformation}>
+          Delete
+        </Button>
       </div>
     </form>
   )

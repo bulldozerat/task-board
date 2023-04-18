@@ -7,7 +7,7 @@ interface BoardTaskProps {
   task: IBoardTask
   column: string
   openMainModalWithViewTaskForm: () => void
-  setActiveTaskClumnData: (org0: ITaskColumnData) => void
+  setActiveTaskColumnData: (org0: ITaskColumnData) => void
   setDraggedTaskColumnData: (org0: ITaskColumnData) => void
 }
 
@@ -16,7 +16,7 @@ function BoardTask(props: BoardTaskProps) {
     task,
     column,
     openMainModalWithViewTaskForm,
-    setActiveTaskClumnData,
+    setActiveTaskColumnData,
     setDraggedTaskColumnData
   } = props
 
@@ -27,7 +27,7 @@ function BoardTask(props: BoardTaskProps) {
   }
 
   function boardTaskClick() {
-    setActiveTaskClumnData({ task, column })
+    setActiveTaskColumnData({ task, column })
     openMainModalWithViewTaskForm()
   }
 
@@ -40,10 +40,13 @@ function BoardTask(props: BoardTaskProps) {
       <Tooltip title={task.title} placement="top">
         <div className={styles.boardTaskTitle}>{task.title}</div>
       </Tooltip>
+
       <div className={styles.boardTaskInfoWrapper}>
-        <span>{task.taskNumber}</span>
-        <span>{task.priority}</span>
-        <Avatar className={styles.boardTaskAvatar}>NA</Avatar>
+        <div>{task.taskNumber}</div>
+        <div className={styles.boardTaskInfoWrapperRightSide}>
+          <span>{task.priority}</span>
+          <Avatar className={styles.boardTaskAvatar}>NA</Avatar>
+        </div>
       </div>
     </div>
   )

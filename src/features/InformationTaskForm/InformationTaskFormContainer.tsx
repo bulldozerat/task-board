@@ -2,7 +2,6 @@ import { useAppSelector, useAppDispatch } from 'hooks/reduxHooks'
 import { selectActiveTaskColumnData, deleteTask } from 'store/slices/boardSlice'
 import { closeMainModal } from 'store/slices/mainModalSlice'
 
-import { ITaskColumnData } from 'types/Board.interfaces'
 import InformationTaskForm from './InformationTaskForm'
 
 const InformationTaskFormContainer = () => {
@@ -11,8 +10,10 @@ const InformationTaskFormContainer = () => {
 
   return (
     <InformationTaskForm
-      activeTaskColumnData={activeTaskColumnData as ITaskColumnData}
-      deleteTask={() => dispatch(deleteTask())}
+      activeTaskColumnData={activeTaskColumnData}
+      deleteTask={(activeTaskColumnData) =>
+        dispatch(deleteTask(activeTaskColumnData))
+      }
       closeMainModal={() => dispatch(closeMainModal())}
     />
   )

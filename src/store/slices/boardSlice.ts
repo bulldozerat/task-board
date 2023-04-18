@@ -6,7 +6,9 @@ import {
   IBoardData,
   INewTaskFormData,
   IBoardTask,
-  ITaskColumnData
+  ITaskColumnData,
+  IComment,
+  ICommentChangeData
 } from 'types/Board.interfaces'
 
 interface IBoardState {
@@ -15,7 +17,7 @@ interface IBoardState {
   boardData: IBoardData
 }
 
-const initialState: IBoardState = {
+export const initialState: IBoardState = {
   draggedTaskColumnData: undefined,
   activeTaskColumnData: undefined,
   boardData: {
@@ -52,24 +54,23 @@ const boardSlice = createSlice({
       state.boardData.todo.count++
       state.boardData.todo.tasks.push(newTask)
     },
-    deleteTask(state) {
-      if (state.activeTaskColumnData === undefined) throw new Error('A problem occured')
+    deleteTask(state, action: PayloadAction<ITaskColumnData>) {
+      const { column, task } = action.payload
+      const taskCurrentColumnData = state.boardData[column]
 
-      const taskCurrentColumnData = state.boardData[state.activeTaskColumnData.column]
       taskCurrentColumnData.count--
-      taskCurrentColumnData.tasks =
-        taskCurrentColumnData.tasks.filter(t => t.id !== state.activeTaskColumnData?.task.id)
+      taskCurrentColumnData.tasks = taskCurrentColumnData.tasks.filter(t => t.id !== task.id)
     },
     editTask(state, action: PayloadAction<ITaskColumnData>) {
       const { column, task } = action.payload
-      const allColumnTasks = state.boardData[column].tasks
-      const taskIndex = allColumnTasks.findIndex(t => t.id === task.id)
+      const tasks = state.boardData[column].tasks
+      const taskIndex = tasks.findIndex(t => t.id === task.id)
 
-      allColumnTasks[taskIndex] = { ...allColumnTasks[taskIndex], ...task }
+      tasks[taskIndex] = { ...tasks[taskIndex], ...task }
     },
     moveTask(state, action: PayloadAction<string>) {
       const taskNewColumn = action.payload
-      const { column, task } = state.draggedTaskColumnData as ITaskColumnData
+      const { column, task } = state.draggedTaskColumnData!
 
       const taskCurrentColumnData = state.boardData[column]
       const taskNewColumnData = state.boardData[taskNewColumn]
@@ -80,7 +81,36 @@ const boardSlice = createSlice({
       taskNewColumnData.count++
       taskNewColumnData.tasks.push(task)
     },
-    setActiveTaskClumnData(state, action: PayloadAction<ITaskColumnData>) {
+    addNewComment(state, action: PayloadAction<ICommentChangeData>) {
+      const { taskId, taskColumn, newComment } = action.payload
+      const comment: IComment = {
+        id: uuidv4(),
+        text: newComment!
+      }
+
+      state.boardData[taskColumn].tasks.forEach(t => {
+        if (t.id === taskId) t.comments.unshift(comment)
+      })
+    },
+    deleteComment(state, action: PayloadAction<ICommentChangeData>) {
+      const { taskId, taskColumn, commentId } = action.payload
+      const task = state.boardData[taskColumn].tasks.find(t => t.id === taskId)
+
+      if ((task?.comments) !== undefined) {
+        task.comments = task.comments.filter(comment => comment.id !== commentId)
+      }
+    },
+    editComment(state, action: PayloadAction<ICommentChangeData>) {
+      const { taskId, taskColumn, commentId, newComment } = action.payload
+      const task = state.boardData[taskColumn].tasks.find(t => t.id === taskId)
+
+      if ((task?.comments) !== undefined) {
+        task.comments.forEach(comment => {
+          if (comment.id === commentId) comment.text = newComment!
+        })
+      }
+    },
+    setActiveTaskColumnData(state, action: PayloadAction<ITaskColumnData>) {
       state.activeTaskColumnData = action.payload
     },
     setDraggedTaskColumnData(state, action: PayloadAction<ITaskColumnData>) {
@@ -90,10 +120,19 @@ const boardSlice = createSlice({
 })
 
 export const {
-  createTask, deleteTask, editTask, moveTask, setActiveTaskClumnData, setDraggedTaskColumnData
+  createTask, deleteTask, editTask, moveTask, setActiveTaskColumnData, setDraggedTaskColumnData
 } = boardSlice.actions
+export const { addNewComment, deleteComment, editComment } = boardSlice.actions
 
 export const selectBoardData = (state: RootState) => state.board.boardData
-export const selectActiveTaskColumnData = (state: RootState) => state.board.activeTaskColumnData
+export const selectActiveTaskColumnData = (state: RootState) => {
+  const { column, task } = state.board.activeTaskColumnData!
+  const columnData: ITaskColumnData = {
+    column,
+    task: state.board.boardData[column].tasks.find(t => t.id === task.id)!
+  }
+
+  return columnData
+}
 
 export default boardSlice.reducer

@@ -8,7 +8,6 @@ interface BoardColumnProps {
 }
 
 function BoardColumn({ boardColumnData, moveTask }: BoardColumnProps) {
-  const { boardColumn, boardColumnTitle } = styles
   const { title, count, tasks, column } = boardColumnData
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -25,10 +24,10 @@ function BoardColumn({ boardColumnData, moveTask }: BoardColumnProps) {
 
   return (
     <div
-      className={boardColumn}
+      className={styles.boardColumn}
       onDrop={handleDrop}
       onDragOver={handleDragOver}>
-      <h2 className={boardColumnTitle}>
+      <h2 className={styles.boardColumnTitle}>
         {title} {count}
       </h2>
       {tasks.map((task) => (

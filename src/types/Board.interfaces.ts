@@ -6,7 +6,7 @@ export interface IBoardTask {
   title: string;
   description: string;
   priority: TASK_PRIORITY;
-  comments: string[];
+  comments: IComment[];
 }
 
 export interface IBoardTasksList {
@@ -27,4 +27,16 @@ export type IBoardData = Record<string, IBoardTasksList>
 export interface ITaskColumnData {
   task: IBoardTask
   column: string
+}
+
+export interface IComment {
+  id: string
+  text: string
+}
+
+export interface ICommentChangeData {
+  taskId: string
+  taskColumn: string
+  commentId?: string
+  newComment?: string
 }

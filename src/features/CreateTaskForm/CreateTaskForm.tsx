@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Button, FormControl, MenuItem, Select, TextField } from '@mui/material'
 
+import style from './CreateTaskForm.module.scss'
 import { INewTaskFormData, TASK_PRIORITY } from 'types/Board.interfaces'
 
 interface CreateTaskFormProps {
@@ -26,7 +27,7 @@ const CreateTaskForm = ({ createTask }: CreateTaskFormProps) => {
   }
 
   return (
-    <form onSubmit={createNewTask}>
+    <form className={style.createTaskForm} onSubmit={createNewTask}>
       <TextField
         value={taskTitleValue}
         type="text"
@@ -37,9 +38,10 @@ const CreateTaskForm = ({ createTask }: CreateTaskFormProps) => {
       />
 
       <FormControl variant="standard" fullWidth>
-        <div>Choose a priority</div>
+        <label className={style.createTaskFormLabel}>Priority</label>
         <Select
           value={taskPriority}
+          variant="outlined"
           onChange={(event) =>
             setTaskPriority(event.target.value as TASK_PRIORITY)
           }>
@@ -65,6 +67,7 @@ const CreateTaskForm = ({ createTask }: CreateTaskFormProps) => {
       <Button
         type="submit"
         variant="contained"
+        size="small"
         disabled={isTaskFormButtonDisabled}>
         Create New Task
       </Button>

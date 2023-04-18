@@ -8,8 +8,6 @@ body {
 }
 
 .app {
-  margin: 30px auto;
-  max-width: 1400px;
-  min-height: 700px;
-  border: 1px solid gray;
+  margin: 0 auto;
+  min-height: 300px;
 }

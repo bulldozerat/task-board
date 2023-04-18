@@ -1,6 +1,6 @@
 import { useAppDispatch } from 'hooks/reduxHooks'
 import {
-  setActiveTaskClumnData,
+  setActiveTaskColumnData,
   setDraggedTaskColumnData
 } from 'store/slices/boardSlice'
 import { openMainModalWithViewTaskForm } from 'store/slices/mainModalSlice'
@@ -19,8 +19,8 @@ const BoardTaskContainer = (props: BoardTaskContainerProps) => {
   return (
     <BoardTask
       {...props}
-      setActiveTaskClumnData={(taskColumnData) =>
-        dispatch(setActiveTaskClumnData(taskColumnData))
+      setActiveTaskColumnData={(taskColumnData) =>
+        dispatch(setActiveTaskColumnData(taskColumnData))
       }
       setDraggedTaskColumnData={(draggedTaskColumnData) =>
         dispatch(setDraggedTaskColumnData(draggedTaskColumnData))
