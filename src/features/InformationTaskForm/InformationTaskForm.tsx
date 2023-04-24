@@ -28,7 +28,7 @@ const InformationTaskForm = (props: InformationTaskFormProps) => {
 
   return (
     <form>
-      <div className={styles.informationFormTaskNumner}>
+      <div className={styles.informationFormTaskNumber}>
         {activeTaskColumnData.task.taskNumber}
       </div>
 
